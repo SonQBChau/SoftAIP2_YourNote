@@ -1,5 +1,7 @@
 
 import 'package:flutter/material.dart';
+import 'package:flutter_app/summary_page.dart';
+import 'package:flutter_app/utils.dart';
 
 import 'lesson.dart';
 
@@ -29,7 +31,14 @@ class DetailPage extends StatelessWidget {
         padding: EdgeInsets.fromLTRB(30, 0, 30, 16),
         width: MediaQuery.of(context).size.width,
         child: RaisedButton(
-          onPressed: () => {print('Call API Summary')},
+          onPressed: () => {
+
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => SummaryPage(lesson: lesson)))
+
+          },
           color: Color.fromRGBO(58, 66, 86, 1.0),
           child:
           Text("GET SUMMARY", style: TextStyle(color: Colors.white)),

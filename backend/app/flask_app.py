@@ -75,7 +75,7 @@ def post_lesson():
     # REMOVE THIS: Wait for 1 seconds
     time.sleep(1)
 
-    return jsonify({'lessons': summarized_lessons}), 201
+    return jsonify({'lessons': summarized_lessons}), 200
 
 
     
