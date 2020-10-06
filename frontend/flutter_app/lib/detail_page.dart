@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/summary_page.dart';
 import 'package:flutter_app/utils.dart';
 
+import 'audio_widget.dart';
 import 'lesson.dart';
 
 class DetailPage extends StatelessWidget {
@@ -50,7 +51,10 @@ class DetailPage extends StatelessWidget {
         title: Text(lesson.title),
       ),
       body: Column(
-        children: <Widget>[ bottomContentText, readButton],
+        children: <Widget>[
+          MyPageWithAudio(),
+          bottomContentText,
+          readButton],
       ),
     );
   }
