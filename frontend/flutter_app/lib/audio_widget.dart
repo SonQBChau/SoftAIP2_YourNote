@@ -14,7 +14,7 @@ class _MyPageWithAudioState extends State<MyPageWithAudio> {
   @override
   Widget build(BuildContext context) {
     return AudioWidget.assets(
-      path: "assets/audios/1.mp3",
+      path: "assets/1.mp3",
       play: _play,
       onReadyToPlay: (total) {
         setState(() {

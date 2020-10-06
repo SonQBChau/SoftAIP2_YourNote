@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:flutter_app/speech_to_text.dart';
 import 'package:flutter_app/summary_page.dart';
 import 'package:flutter_app/utils.dart';
 
@@ -53,6 +54,7 @@ class DetailPage extends StatelessWidget {
       body: Column(
         children: <Widget>[
           MyPageWithAudio(),
+          AudioRecognize(),
           bottomContentText,
           readButton],
       ),
