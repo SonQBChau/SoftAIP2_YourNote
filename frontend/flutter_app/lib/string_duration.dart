@@ -5,8 +5,20 @@ extension FormatString on Duration {
       return "0$n";
     }
 
+
     String twoDigitMinutes = twoDigits(this.inMinutes.remainder(Duration.minutesPerHour));
     String twoDigitSeconds = twoDigits(this.inSeconds.remainder(Duration.secondsPerMinute));
+
+    print('=====');
+    print(twoDigitSeconds);
+
     return "$twoDigitMinutes:$twoDigitSeconds";
+  }
+  int get toDigitSeconds {
+
+
+
+
+    return this.inSeconds.remainder(Duration.secondsPerMinute);
   }
 }
