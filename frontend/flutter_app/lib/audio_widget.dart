@@ -30,7 +30,9 @@ class _MyPageWithAudioState extends State<MyPageWithAudio> {
         mainAxisAlignment: MainAxisAlignment.center,
         mainAxisSize: MainAxisSize.max,
         children: <Widget>[
-          Text("TED talks"),
+          SizedBox(
+            height: 20,
+          ),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: RaisedButton(
@@ -40,6 +42,7 @@ class _MyPageWithAudioState extends State<MyPageWithAudio> {
               child: Icon(
                 _play ? Icons.pause : Icons.play_arrow,
                 color: Colors.white,
+                size: 50,
               ),
               onPressed: () {
                 setState(() {

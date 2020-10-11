@@ -5,8 +5,8 @@ import 'package:flutter_app/utils.dart';
 import 'lesson.dart';
 
 class SummaryPage extends StatefulWidget {
-  final Lesson lesson;
-  SummaryPage({Key key, this.lesson}) : super(key: key);
+  final String text_content;
+  SummaryPage({Key key, this.text_content}) : super(key: key);
 
   @override
   _SummaryPageState createState() => _SummaryPageState();
@@ -19,7 +19,7 @@ class _SummaryPageState extends State<SummaryPage> {
   @override
   void initState() {
     super.initState();
-    summary = getSummary(this.widget.lesson.content);
+    summary = getSummary(this.widget.text_content);
   }
 
   @override
@@ -34,6 +34,7 @@ class _SummaryPageState extends State<SummaryPage> {
             future: summary,
             builder: (context, snapshot) {
               if (snapshot.hasData) {
+
                 return Text(snapshot.data);
               } else if (snapshot.hasError) {
                 return Text("${snapshot.error}");
@@ -63,7 +64,7 @@ class _SummaryPageState extends State<SummaryPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.lesson.title),
+        title: Text("Summary"),
       ),
       body: Column(
         children: <Widget>[ bottomContentText, readButton],

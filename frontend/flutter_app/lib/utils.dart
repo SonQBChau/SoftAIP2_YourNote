@@ -12,8 +12,8 @@ Future<String> getSummary(content) async {
   // check the status code for the result
 
   if (response.statusCode == 200) {
-    // print(response.body);
-    return response.body;
+    content = jsonDecode(response.body);
+    return content['lessons'];
   } else {
     // If the server did not return a 200 OK response,
     // then throw an exception.
@@ -21,3 +21,4 @@ Future<String> getSummary(content) async {
     throw Exception('Failed to get data');
   }
 }
+

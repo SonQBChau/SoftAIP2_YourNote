@@ -8,6 +8,8 @@ import 'package:path_provider/path_provider.dart';
 
 
 class AudioRecognize extends StatefulWidget {
+  final Function(String) notifyParent;
+  AudioRecognize({Key key, @required this.notifyParent}) : super(key: key);
   @override
   State<StatefulWidget> createState() => _AudioRecognizeState();
 }
@@ -35,7 +37,7 @@ class _AudioRecognizeState extends State<AudioRecognize> {
             .map((e) => e.alternatives.first.transcript)
             .join('\n');
       });
-      print(text);
+      widget.notifyParent(text);
     }).whenComplete(() => setState(() {
       recognizeFinished = true;
       recognizing = false;
@@ -84,10 +86,10 @@ class _AudioRecognizeState extends State<AudioRecognize> {
                   ? CircularProgressIndicator()
                   : Text('Test with recognize'),
             ),
-            if (recognizeFinished)
-              _RecognizeContent(
-                text: text,
-              ),
+            // if (recognizeFinished)
+            //   _RecognizeContent(
+            //     text: text,
+            //   ),
 
           ],
         ),
