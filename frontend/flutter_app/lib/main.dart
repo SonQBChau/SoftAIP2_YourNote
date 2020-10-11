@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:flutter_app/audio_page.dart';
 
 import 'detail_page.dart';
 import 'lesson.dart';
@@ -15,7 +16,8 @@ class MyApp extends StatelessWidget {
       title: 'Summaly',
       theme: new ThemeData(
           primaryColor: Color.fromRGBO(58, 66, 86, 1.0)),
-      home: new ListPage(title: 'Lessons'),
+        home: AudioPage(),
+      // home: new ListPage(title: 'Lessons'),
       // home: DetailPage(),
     );
   }
@@ -58,7 +60,8 @@ class _ListPageState extends State<ListPage> {
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => DetailPage(lesson: lesson)));
+                // builder: (context) => DetailPage(lesson: lesson)));
+                builder: (context) => AudioPage()));
       },
     );
 
