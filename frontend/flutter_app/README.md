@@ -1,7 +1,7 @@
 # Text Summary App
 Front end app
 
-<img src="" >
+<img src="https://github.com/LoriSchuan-dev/SoftAIP2_YourNote/blob/master/frontend/flutter_app/assets/1.png" >
 
 ### Getting Started
 
