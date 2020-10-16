@@ -1,16 +1,19 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'dart:io';
+import 'dart:convert';
+import 'package:flutter/material.dart';
+import 'package:http/http.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+
 import 'package:flutter/services.dart';
 import 'package:google_speech/google_speech.dart';
 import 'package:google_speech/speech_to_text_beta.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:assets_audio_player/assets_audio_player.dart';
-import './string_duration.dart';
-import 'package:http/http.dart';
-import 'dart:convert';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 
+
+
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import './string_duration.dart';
 
 class AudioPage extends StatefulWidget {
   @override
@@ -18,9 +21,6 @@ class AudioPage extends StatefulWidget {
 }
 
 class _AudioPageState extends State<AudioPage> {
-
-
-
   @override
   Widget build(BuildContext context) {
     return NeumorphicTheme(
@@ -28,12 +28,8 @@ class _AudioPageState extends State<AudioPage> {
         theme: NeumorphicThemeData(
           defaultTextColor: Color(0xFF3E3E3E),
           baseColor: Color(0xFFDDE6E8),
-          intensity: 0.5,
-          lightSource: LightSource.topLeft,
-          depth: 10,
         ),
-        darkTheme: neumorphicDefaultDarkTheme.copyWith(
-            defaultTextColor: Colors.white70),
+        darkTheme: neumorphicDefaultDarkTheme.copyWith(defaultTextColor: Colors.white70),
         child: _Page());
   }
 }
@@ -55,30 +51,27 @@ class __PageState extends State<_Page> {
   double currentPosition = 0.0;
   double totalDuration = 100.0;
 
-
   void recognize() async {
     setState(() {
       recognizing = true;
     });
-    final serviceAccount = ServiceAccount.fromString(
-        '${(await rootBundle.loadString('assets/google_key.json'))}');
+    final serviceAccount =
+        ServiceAccount.fromString('${(await rootBundle.loadString('assets/google_key.json'))}');
     final speechToText = SpeechToTextBeta.viaServiceAccount(serviceAccount);
     final config = _getConfig();
-    final audio = await _getAudioContent('1.mp3');
-    // final audio = await _getAudioContent('ted.mp3');
+    final audio = await _getAudioContent('ml2.mp3');
 
     await speechToText.recognize(config, audio).then((value) {
       setState(() {
-        text = value.results
-            .map((e) => e.alternatives.first.transcript)
-            .join('\n');
+        text = value.results.map((e) => e.alternatives.first.transcript).join('\n');
       });
       // widget.notifyParent(text);
     }).whenComplete(() => setState(() {
-      recognizeFinished = true;
-      recognizing = false;
-      transcript = text;
-    }));
+          recognizeFinished = true;
+          recognizing = false;
+          transcript = text;
+          print(transcript);
+        }));
   }
 
   void getSummary() async {
@@ -99,8 +92,8 @@ class __PageState extends State<_Page> {
         summarizing = false;
         summarizeFinished = true;
         transcript = jsonDecode(response.body)['lessons'];
+        print(transcript);
       });
-
     } else {
       // If the server did not return a 200 OK response,
       // then throw an exception.
@@ -111,9 +104,8 @@ class __PageState extends State<_Page> {
     }
   }
 
-
   RecognitionConfigBeta _getConfig() => RecognitionConfigBeta(
-    // encoding: AudioEncoding.LINEAR16,
+      // encoding: AudioEncoding.LINEAR16,
       encoding: AudioEncoding.ENCODING_UNSPECIFIED,
       model: RecognitionModel.basic,
       enableAutomaticPunctuation: true,
@@ -125,8 +117,7 @@ class __PageState extends State<_Page> {
     var data = await rootBundle.load('assets/$name');
     final directory = await getApplicationDocumentsDirectory();
     final path = directory.path + '/$name';
-    await File(path).writeAsBytes(
-        data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes));
+    await File(path).writeAsBytes(data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes));
   }
 
   Future<List<int>> _getAudioContent(String name) async {
@@ -140,7 +131,7 @@ class __PageState extends State<_Page> {
 
   buildControlsBar(BuildContext context) {
     return AudioWidget.assets(
-        path: "assets/1.mp3",
+        path: "assets/ml2.mp3",
         play: _play,
         onReadyToPlay: (total) {
           setState(() {
@@ -174,13 +165,9 @@ class __PageState extends State<_Page> {
                 color: _iconsColor(),
               ),
             ),
-
           ],
-        )
-    );
+        ));
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -199,7 +186,6 @@ class __PageState extends State<_Page> {
               _buildTranscriptButton(context),
               SizedBox(height: 30),
               _buildTranscriptArea(context),
-
             ],
           ),
         ),
@@ -229,7 +215,6 @@ class __PageState extends State<_Page> {
   }
 
   Widget _buildSeekBar(BuildContext context, double currentPosition, double totalDuration) {
-
     // print(currentPosition);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 28.0),
@@ -242,15 +227,13 @@ class __PageState extends State<_Page> {
                   alignment: Alignment.centerLeft,
                   child: Text(
                     "0:${currentPosition.toInt()}",
-                    style: TextStyle(
-                        color: NeumorphicTheme.defaultTextColor(context)),
+                    style: TextStyle(color: NeumorphicTheme.defaultTextColor(context)),
                   )),
               Align(
                   alignment: Alignment.centerRight,
                   child: Text(
                     "0:${totalDuration.toInt()}",
-                    style: TextStyle(
-                        color: NeumorphicTheme.defaultTextColor(context)),
+                    style: TextStyle(color: NeumorphicTheme.defaultTextColor(context)),
                   )),
             ],
           ),
@@ -268,8 +251,6 @@ class __PageState extends State<_Page> {
       ),
     );
   }
-
-
 
   Color _iconsColor() {
     final theme = NeumorphicTheme.of(context);
@@ -290,49 +271,50 @@ class __PageState extends State<_Page> {
               color: NeumorphicTheme.defaultTextColor(context))),
     );
   }
-  Widget _buildTranscriptButton(BuildContext context) {
 
+  Widget _buildTranscriptButton(BuildContext context) {
     Widget button;
-    if (recognizeFinished && !summarizeFinished){
+    if (recognizeFinished && !summarizeFinished) {
       button = NeumorphicButton(
         onPressed: summarizing ? () {} : getSummary,
         padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-        child:  summarizing
-            ? Container(width:50, height: 30,child: SpinKitWave(color: Colors.blue, type: SpinKitWaveType.center, size: 30))
-            :Text(
-          "Summarize it!",
+        child: summarizing
+            ? Container(
+                width: 50,
+                height: 30,
+                child: SpinKitWave(color: Colors.blue, type: SpinKitWaveType.center, size: 30))
+            : Text(
+                "Summarize it!",
+                style: TextStyle(fontWeight: FontWeight.w800),
+              ),
+      );
+    } else if (recognizeFinished && summarizeFinished) {
+      button = NeumorphicButton(
+        onPressed: () {},
+        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+        child: Text(
+          "Done",
           style: TextStyle(fontWeight: FontWeight.w800),
         ),
       );
-    }
-    else if (recognizeFinished && summarizeFinished){
-        button = NeumorphicButton(
-          onPressed: () {} ,
-          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-          child:Text(
-            "Done",
-            style: TextStyle(fontWeight: FontWeight.w800),
-          ),
-        );
-    }
-    else {
+    } else {
       button = NeumorphicButton(
         onPressed: recognizing ? () {} : recognize,
         padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-        child:  recognizing
-            ? Container(width:50, height: 30,child: SpinKitWave(color: Colors.blue, type: SpinKitWaveType.center, size: 30))
-            :Text(
-          "Get Transcript from Google",
-          style: TextStyle(fontWeight: FontWeight.w800),
-        ),
+        child: recognizing
+            ? Container(
+                width: 50,
+                height: 30,
+                child: SpinKitWave(color: Colors.blue, type: SpinKitWaveType.center, size: 30))
+            : Text(
+                "Get Transcript from Google",
+                style: TextStyle(fontWeight: FontWeight.w800),
+              ),
       );
     }
 
     return Container(
-      child: Center(
-        child: button
-      ),
+      child: Center(child: button),
     );
-
   }
 }

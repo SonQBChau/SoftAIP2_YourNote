@@ -48,6 +48,8 @@ flutter:
     - assets/google_key.json
     - assets/1.wav
     - assets/1.mp3
+    - assets/ml2.mp3
+
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
