@@ -2,7 +2,7 @@
 Front end app
 
 <img src="https://github.com/LoriSchuan-dev/SoftAIP2_YourNote/blob/master/frontend/flutter_app/assets/1.png" width="340" height="700">
-<img src="https://github.com/LoriSchuan-dev/SoftAIP2_YourNote/blob/master/frontend/flutter_app/assets/2.gif" width="340" height="700">
+<img src="https://github.com/LoriSchuan-dev/SoftAIP2_YourNote/blob/master/frontend/flutter_app/assets/2.gif" >
 ### Getting Started
 
 #### Prerequisites
